@@ -31,11 +31,11 @@ class Entity:
         else:
             sif = [self.x - 1, self.y]
 
-            
+
         if not (sif[0] > self.board.width - 1 or sif[0] < 0 or sif[1] > self.board.height - 1 or sif[1] < 0):
             return sif
-        
-        
+
+
 
     def move(self, direction):
         if direction == DIR_NORTH:
@@ -87,7 +87,7 @@ class Entity:
             return True
 
 
-            
+
 class Board:
     def __init__(self, width, height):
         self.width = width

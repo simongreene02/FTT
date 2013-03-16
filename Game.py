@@ -18,10 +18,10 @@ isTurnTaken = True
 
 def inputGameRunning(event):
     global isTurnTaken
-    
+
     if event.type == pygame.QUIT:
         pygame.quit()
-        sys.exit()       
+        sys.exit()
     elif event.type == pygame.KEYUP and event.key == pygame.K_w:
         mb.player.move(Square_Gen.DIR_NORTH)
     elif event.type == pygame.KEYUP and event.key == pygame.K_d:
@@ -53,7 +53,7 @@ def inputGameOver(event):
     # Null, High score screen (arcade ver) or Wait for input
     if event.type == pygame.QUIT:
         pygame.quit()
-        sys.exit()   
+        sys.exit()
 
 def logicGameOver():
     #ai_dump("null")
@@ -76,4 +76,4 @@ while 1:
         elif gameState == STATE_MENU:
             pass
     s.drawScreen(gameState)
-            
+
