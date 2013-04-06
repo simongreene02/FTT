@@ -1,15 +1,16 @@
 Create Board (Done)
-Create Entites (Player/Boss) (Half-Done)
+Create Entites (Player/Boss) (Done)
 Create Boss AI
 Create Main Loop and Logic
 	Detect Player Input (Done)
 	Make Kill Square Trail
 	Detect Kill Squares (Done)
-	Detect Player, Boss & Bullet Position (2/3)
-	Detect Player & Bullet Contact
+	Detect Player, Boss & Bullet Position (Done)
+	Detect Player & Bullet Contact (Done)
+	Allow for Crushing
 	Move Bullets (Done)
 	Draw Screen
-		Draw Squares, Boss & Player (2/3)
+		Draw Squares, Boss & Player (Done)
 		Draw Bullets (Done)
 		Make Effects
 			BossExpl
