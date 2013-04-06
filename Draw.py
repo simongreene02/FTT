@@ -18,6 +18,7 @@ class ScreenMaker:
         self.images['killSq'] = pygame.image.load("Hazard_Square.bmp")
         self.images['player'] = pygame.image.load("Player.bmp")
         self.images['bullet'] = pygame.image.load("Bullet.bmp")
+        self.images['boss'] = pygame.image.load("Boss.bmp")
 
     def drawScreen(self, state):
         for y in range(self.board.height):
@@ -27,11 +28,13 @@ class ScreenMaker:
                 else:
                     image = 'safeSq'
                 self.screen.blit(self.images[image], (x*SQUAREWIDTH, y*SQUAREHEIGHT))
-                if self.board.player.x == x and self.board.player.y == y:
-                    plyImg = pygame.transform.rotate(self.images[self.board.player.image], dirRotation[self.board.player.dire])
-                    self.screen.blit(plyImg, (x*SQUAREWIDTH, y*SQUAREHEIGHT))
 
         for bullet in self.board.bullets:
             self.screen.blit(self.images["bullet"], (bullet.x*SQUAREWIDTH, bullet.y*SQUAREHEIGHT))
+
+        for entity in [self.board.player, self.board.boss]:
+            if entity.stillAlive():
+                entImg = pygame.transform.rotate(self.images[entity.image], dirRotation[entity.dire])
+                self.screen.blit(entImg, (entity.x*SQUAREWIDTH, entity.y*SQUAREHEIGHT))
         
         pygame.display.flip()

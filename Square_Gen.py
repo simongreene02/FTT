@@ -95,7 +95,7 @@ class Board:
         self.killSquares = [[9, 9]]
         self.player = Entity('player', 0, 0, DIR_NORTH, self, 1)
         self.bullets = []
-        #self.boss = Entity()
+        self.boss = Entity('boss', width - 1, height - 1, DIR_WEST, self, 1)
 
     def PlayerLogic(self):
         if [self.player.x, self.player.y] in self.killSquares:
@@ -108,8 +108,15 @@ class Board:
     def moveBullets(self):
         deleteFlag = []
         for index, bullet in enumerate(self.bullets):
-            if bullet.squareInFront() == None:
+            sqrInFront = bullet.squareInFront()
+            if sqrInFront == None:
                 deleteFlag.append(index)
-            bullet.move(bullet.dire)
-        for index in deleteFlag:
+            elif sqrInFront == [self.boss.x, self.boss.y]:
+                deleteFlag.append(index)
+                self.boss.HP -= 1
+            elif sqrInFront == [self.player.x, self.player.y]:
+                deleteFlag.append(index)
+            else: bullet.move(bullet.dire)
+        deleteFlagSorted = sorted(deleteFlag, reverse=True)
+        for index in deleteFlagSorted:
             del self.bullets[index]

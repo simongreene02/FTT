@@ -32,6 +32,8 @@ def inputGameRunning(event):
         mb.player.move(Square_Gen.DIR_WEST)
     elif event.type == pygame.KEYUP and event.key == pygame.K_SPACE:
         mb.fireBullet()
+    elif event.type == pygame.KEYUP and event.key == pygame.K_n:
+        pass
     else:
         isTurnTaken = False
 
