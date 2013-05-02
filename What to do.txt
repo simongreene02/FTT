@@ -17,3 +17,17 @@ Create Main Loop and Logic
 			HyperExpl
 			RegExpl
 			PlayerExpl
+Create Main Menu
+	Implement 'Menu' class
+		Create menu sections
+			Create Play Button
+			Create Settings Button
+				Graphics Settings
+				Audio Settings
+				Gameplay Actions (Not until real-time version introduced)
+				Controls
+				Custom Textures
+					How to use custom textures
+			Create Quit Button
+	Connect menu to pressing any key after
+	Implement controls
