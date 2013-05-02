@@ -13,7 +13,7 @@ DIR_WEST = 4
 player_dead = False
 
 class Entity:
-    def __init__(self, image, x, y, dire, board, HP):
+    def __init__(self, image, x, y, dire, board, HP, weight):
         self.image = image
         self.x = x
         self.y = y
@@ -21,6 +21,7 @@ class Entity:
         self.board = board
         self.HP = HP
         self.lastmove = -1
+        self.weight = weight
 
     def squareInFront(self):
         if self.dire == DIR_NORTH:
@@ -94,9 +95,9 @@ class Board:
         self.width = width
         self.height = height
         self.killSquares = [[9, 9]]
-        self.player = Entity('player', 0, 0, DIR_NORTH, self, 1)
+        self.player = Entity('player', 0, 0, DIR_NORTH, self, 1, 1)
         self.bullets = []
-        self.boss = Entity('boss', width - 1, height - 1, DIR_WEST, self, 1)
+        self.boss = Entity('boss', width - 1, height - 1, DIR_WEST, self, 1, 10)
 
     def PlayerLogic(self):
         if [self.player.x, self.player.y] in self.killSquares:
@@ -117,7 +118,7 @@ class Board:
         
     def fireBullet(self):
         if not self.player.squareInFront() == None:
-            self.bullets.append(Entity('bullet', self.player.x, self.player.y, self.player.dire, self, 1))
+            self.bullets.append(Entity('bullet', self.player.x, self.player.y, self.player.dire, self, 1, -1))
 
     def moveBullets(self):
         deleteFlag = []

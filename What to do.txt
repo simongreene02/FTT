@@ -10,6 +10,7 @@ Create Main Loop and Logic
 	Detect Kill Squares (Done)
 	Detect Player, Boss & Bullet Position (Done)
 	Detect Player & Bullet Contact (Done)
+	Implement Weight System
 	Allow for Crushing
 	Move Bullets (Done)
 	Draw Screen
