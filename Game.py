@@ -42,15 +42,15 @@ def logicGameRunning():
     global gameState
     if not isTurnTaken:
         return None
-    mb.PlayerLogic()
     if len(mb.bullets) != 0:
         mb.moveBullets()
     if not mb.player.stillAlive():
         gameState = STATE_GAMEOVER
         logicGameOver()
         return None
-    #bossAI()
-
+    mb.PlayerLogic()
+    mb.BossLogic()
+    
 def inputGameOver(event):
     # Null, High score screen (arcade ver) or Wait for input
     if event.type == pygame.QUIT:

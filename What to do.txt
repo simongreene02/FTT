@@ -3,7 +3,7 @@ Create Entites (Player/Boss) (Done)
 Create Boss AI
 Create Main Loop and Logic
 	Detect Player Input (Done)
-	Make Kill Square Trail
+	Make Kill Square Trail (Done)
 	Detect Kill Squares (Done)
 	Detect Player, Boss & Bullet Position (Done)
 	Detect Player & Bullet Contact (Done)

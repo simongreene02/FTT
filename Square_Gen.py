@@ -101,6 +101,9 @@ class Board:
         if [self.player.x, self.player.y] in self.killSquares:
             self.player.HP = 0
 
+    def BossLogic(self):
+        if [self.boss.x,self.boss.y] not in self.killSquares:
+            self.killSquares.append([self.boss.x,self.boss.y])
     def fireBullet(self):
         if not self.player.squareInFront() == None:
             self.bullets.append(Entity('bullet', self.player.x, self.player.y, self.player.dire, self, 1))
