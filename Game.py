@@ -33,6 +33,7 @@ def inputGameRunning(event):
     elif event.type == pygame.KEYUP and event.key == pygame.K_SPACE:
         mb.fireBullet()
     elif event.type == pygame.KEYUP and event.key == pygame.K_n:
+        mb.player.lastmove = 0
         pass
     else:
         isTurnTaken = False

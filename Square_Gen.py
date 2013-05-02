@@ -20,6 +20,7 @@ class Entity:
         self.dire = dire
         self.board = board
         self.HP = HP
+        self.lastmove = -1
 
     def squareInFront(self):
         if self.dire == DIR_NORTH:
@@ -50,7 +51,7 @@ class Entity:
         if direction == DIR_WEST:
             self.face_west()
             self.move_west()
-
+        self.lastmove = direction
     def move_north(self):
         if self.y > 0 and not frozenEntites:
             self.y -= 1
@@ -102,8 +103,18 @@ class Board:
             self.player.HP = 0
 
     def BossLogic(self):
+        if self.player.lastmove == DIR_NORTH:
+            self.boss.move(DIR_SOUTH)
+        elif self.player.lastmove == DIR_SOUTH:
+            self.boss.move(DIR_NORTH)
+        elif self.player.lastmove == DIR_EAST:
+            self.boss.move(DIR_WEST)
+        elif self.player.lastmove == DIR_WEST:
+            self.boss.move(DIR_EAST)
+        
         if [self.boss.x,self.boss.y] not in self.killSquares:
             self.killSquares.append([self.boss.x,self.boss.y])
+        
     def fireBullet(self):
         if not self.player.squareInFront() == None:
             self.bullets.append(Entity('bullet', self.player.x, self.player.y, self.player.dire, self, 1))

@@ -1,6 +1,9 @@
 Create Board (Done)
 Create Entites (Player/Boss) (Done)
 Create Boss AI
+	North Logic (Done)
+	Mirror Logic (Done)
+	Crush AI
 Create Main Loop and Logic
 	Detect Player Input (Done)
 	Make Kill Square Trail (Done)
