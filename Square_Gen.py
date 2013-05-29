@@ -13,13 +13,15 @@ DIR_WEST = 4
 player_dead = False
 
 class Entity:
-    def __init__(self, image, x, y, dire, board, HP):
+    def __init__(self, image, x, y, dire, board, HP, weight):
         self.image = image
         self.x = x
         self.y = y
         self.dire = dire
         self.board = board
         self.HP = HP
+        self.lastmove = -1
+        self.weight = weight
 
     def squareInFront(self):
         if self.dire == DIR_NORTH:
@@ -50,7 +52,7 @@ class Entity:
         if direction == DIR_WEST:
             self.face_west()
             self.move_west()
-
+        self.lastmove = direction
     def move_north(self):
         if self.y > 0 and not frozenEntites:
             self.y -= 1
@@ -93,17 +95,30 @@ class Board:
         self.width = width
         self.height = height
         self.killSquares = [[9, 9]]
-        self.player = Entity('player', 0, 0, DIR_NORTH, self, 1)
+        self.player = Entity('player', 0, 0, DIR_NORTH, self, 1, 1)
         self.bullets = []
-        self.boss = Entity('boss', width - 1, height - 1, DIR_WEST, self, 1)
+        self.boss = Entity('boss', width - 1, height - 1, DIR_WEST, self, 1, 10)
 
     def PlayerLogic(self):
         if [self.player.x, self.player.y] in self.killSquares:
             self.player.HP = 0
 
+    def BossLogic(self):
+        if self.player.lastmove == DIR_NORTH:
+            self.boss.move(DIR_SOUTH)
+        elif self.player.lastmove == DIR_SOUTH:
+            self.boss.move(DIR_NORTH)
+        elif self.player.lastmove == DIR_EAST:
+            self.boss.move(DIR_WEST)
+        elif self.player.lastmove == DIR_WEST:
+            self.boss.move(DIR_EAST)
+        
+        if [self.boss.x,self.boss.y] not in self.killSquares:
+            self.killSquares.append([self.boss.x,self.boss.y])
+        
     def fireBullet(self):
         if not self.player.squareInFront() == None:
-            self.bullets.append(Entity('bullet', self.player.x, self.player.y, self.player.dire, self, 1))
+            self.bullets.append(Entity('bullet', self.player.x, self.player.y, self.player.dire, self, 1, -1))
 
     def moveBullets(self):
         deleteFlag = []

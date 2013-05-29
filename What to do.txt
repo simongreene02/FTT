@@ -1,12 +1,16 @@
 Create Board (Done)
 Create Entites (Player/Boss) (Done)
 Create Boss AI
+	North Logic (Done)
+	Mirror Logic (Done)
+	Crush AI
 Create Main Loop and Logic
 	Detect Player Input (Done)
-	Make Kill Square Trail
+	Make Kill Square Trail (Done)
 	Detect Kill Squares (Done)
 	Detect Player, Boss & Bullet Position (Done)
 	Detect Player & Bullet Contact (Done)
+	Implement Weight System
 	Allow for Crushing
 	Move Bullets (Done)
 	Draw Screen
@@ -17,3 +21,17 @@ Create Main Loop and Logic
 			HyperExpl
 			RegExpl
 			PlayerExpl
+Create Main Menu
+	Implement 'Menu' class
+		Create menu sections
+			Create Play Button
+			Create Settings Button
+				Graphics Settings
+				Audio Settings
+				Gameplay Actions (Not until real-time version introduced)
+				Controls
+				Custom Textures
+					How to use custom textures
+			Create Quit Button
+	Connect menu to pressing any key after
+	Implement controls
