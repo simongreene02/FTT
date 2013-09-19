@@ -1,8 +1,8 @@
 import pygame, Square_Gen, Draw, sys
 pygame.init()
 
-width = 10
-height = 10
+width = 11
+height = 11
 
 STATE_RUNNING = 1
 STATE_MENU = 2
@@ -32,6 +32,7 @@ def inputGameRunning(event):
         mb.player.move(Square_Gen.DIR_WEST)
     elif event.type == pygame.KEYUP and event.key == pygame.K_SPACE:
         mb.fireBullet()
+        mb.player.lastmove = 0
     elif event.type == pygame.KEYUP and event.key == pygame.K_n:
         mb.player.lastmove = 0
         pass
@@ -46,6 +47,9 @@ def logicGameRunning():
     if len(mb.bullets) != 0:
         mb.moveBullets()
     if not mb.player.stillAlive():
+        gameState = STATE_GAMEOVER
+        logicGameOver()
+    if not mb.boss.stillAlive():
         gameState = STATE_GAMEOVER
         logicGameOver()
         return None

@@ -29,10 +29,10 @@ class ScreenMaker:
                     image = 'safeSq'
                 self.screen.blit(self.images[image], (x*SQUAREWIDTH, y*SQUAREHEIGHT))
 
-        for bullet in self.board.bullets:
-            self.screen.blit(self.images["bullet"], (bullet.x*SQUAREWIDTH, bullet.y*SQUAREHEIGHT))
+        #for bullet in self.board.bullets:
+            #self.screen.blit(self.images["bullet"], (bullet.x*SQUAREWIDTH, bullet.y*SQUAREHEIGHT))
 
-        for entity in [self.board.player, self.board.boss]:
+        for entity in [self.board.player, self.board.boss] + self.board.bullets:
             if entity.stillAlive():
                 entImg = pygame.transform.rotate(self.images[entity.image], dirRotation[entity.dire])
                 self.screen.blit(entImg, (entity.x*SQUAREWIDTH, entity.y*SQUAREHEIGHT))
