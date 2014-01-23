@@ -27,12 +27,12 @@ class Entity:
         self.lastmove = -1
         self.weight = weight
 
-    def squareInFront(self, squares = 1):
-        if self.dire == DIR_NORTH:
+    def squareInFront(self, dire, squares = 1):
+        if dire == DIR_NORTH:
             sif = [self.x, self.y - squares]
-        elif self.dire == DIR_EAST:
+        elif dire == DIR_EAST:
             sif = [self.x + squares, self.y]
-        elif self.dire == DIR_SOUTH:
+        elif dire == DIR_SOUTH:
             sif = [self.x, self.y + squares]
         else:
             sif = [self.x - squares, self.y]
@@ -59,11 +59,11 @@ class Entity:
             self.move_west()
         self.lastmove = direction
         if self == self.board.boss:
-            if self.squareInFront(1) == [self.board.player.x, self.board.player.y]:
+            if self.squareInFront(self.dire, 1) == [self.board.player.x, self.board.player.y]:
                 self.board.PlayerLogic()
     def move_north(self):
         if self.y > 0 and not frozenEntites:
-            sif = self.squareInFront()
+            sif = self.squareInFront(self.dire)
             for entity in [self.board.player, self.board.boss] + self.board.bullets:
                 if sif == [entity.x, entity.y]:
                     if entity.weight < 0:
@@ -71,7 +71,7 @@ class Entity:
                         self.y -= 1
                         return None
                     if entity.weight < self.weight:
-                        sif2 = self.squareInFront(2)
+                        sif2 = self.squareInFront(self.dire, 2)
                         if sif2 == None:
                             entity.HP = 0
                             self.y -= 1
@@ -87,7 +87,7 @@ class Entity:
 
     def move_east(self):
         if self.x < self.board.width - 1 and not frozenEntites:
-            sif = self.squareInFront()
+            sif = self.squareInFront(self.dire)
             for entity in [self.board.player, self.board.boss] + self.board.bullets:
                 if sif == [entity.x, entity.y]:
                     if entity.weight < 0:
@@ -95,7 +95,7 @@ class Entity:
                         self.x += 1
                         return None
                     if entity.weight < self.weight:
-                        sif2 = self.squareInFront(2)
+                        sif2 = self.squareInFront(self.dire, 2)
                         if sif2 == None:
                             entity.HP = 0
                             self.x += 1
@@ -111,7 +111,7 @@ class Entity:
 
     def move_south(self):
         if self.y < self.board.height - 1 and not frozenEntites:
-            sif = self.squareInFront()
+            sif = self.squareInFront(self.dire)
             for entity in [self.board.player, self.board.boss] + self.board.bullets:
                 if sif == [entity.x, entity.y]:
                     if entity.weight < 0:
@@ -119,7 +119,7 @@ class Entity:
                         self.y += 1
                         return None
                     if entity.weight < self.weight:
-                        sif2 = self.squareInFront(2)
+                        sif2 = self.squareInFront(self.dire, 2)
                         if sif2 == None:
                             entity.HP = 0
                             self.y += 1
@@ -135,7 +135,7 @@ class Entity:
 
     def move_west(self):
         if self.x > 0 and not frozenEntites:
-            sif = self.squareInFront()
+            sif = self.squareInFront(self.dire)
             for entity in [self.board.player, self.board.boss] + self.board.bullets:
                 if sif == [entity.x, entity.y]:
                     if entity.weight < 0:
@@ -143,7 +143,7 @@ class Entity:
                         self.x -= 1
                         return None
                     if entity.weight < self.weight:
-                        sif2 = self.squareInFront(2)
+                        sif2 = self.squareInFront(self.dire, 2)
                         if sif2 == None:
                             entity.HP = 0
                             self.x -= 1
@@ -230,13 +230,13 @@ class Board:
            #del self.killSquares[0]
         
     def fireBullet(self):
-        if not self.player.squareInFront() == None:
+        if not self.player.squareInFront(self.dire) == None:
             self.bullets.append(Entity('bullet', self.player.x, self.player.y, self.player.dire, self, 1, -1))
 
     def moveBullets(self):
         deleteFlag = []
         for index, bullet in enumerate(self.bullets):
-            sqrInFront = bullet.squareInFront()
+            sqrInFront = bullet.squareInFront(self.dire)
             if sqrInFront == None:
                 deleteFlag.append(index)
             elif sqrInFront == [self.boss.x, self.boss.y]:
@@ -258,6 +258,9 @@ class ChargeAI:
         self.dodgingSqrs = 0
 
     def RunAI(self):
+        if random.randint(1, 5) == 1:
+            dodgingSqrs = random.randint(3, 5)
+            print dodgingSqrs
         if self.boss.x == self.player.x or self.boss.y == self.player.y:
             if self.boss.x < self.player.x:
                 self.boss.move(DIR_EAST)

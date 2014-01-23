@@ -12,7 +12,7 @@ mb = Square_Gen.Board(width, height)
 
 s = Draw.ScreenMaker(mb)
 
-gameState = STATE_RUNNING
+gameState = STATE_MENU
 
 isTurnTaken = True
 
@@ -73,6 +73,9 @@ while 1:
     Square_Gen.frozenEntites = False
     for event in pygame.event.get():
         isTurnTaken = True
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
         if gameState == STATE_RUNNING:
             inputGameRunning(event)
             logicGameRunning()
